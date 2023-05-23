@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Reflection;
+using System.Text;
 using ZBP.Enums;
 
 namespace ZBP.Attributes {
@@ -79,6 +80,10 @@ namespace ZBP.Attributes {
             Name = name;
             Period = Frequency.Month;
             Type = type;
+        }
+
+        public static FactorAttribute? GetFactorAttribute(PropertyInfo propertyInfo) {
+            return propertyInfo.GetCustomAttribute<FactorAttribute>();
         }
     }
 }
