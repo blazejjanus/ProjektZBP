@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Text;
 using System.Text.Json;
 using ZBP.Attributes;
 using ZBP.Enums;
@@ -99,10 +100,39 @@ namespace ZBP.Data {
             return typeof(Record).GetProperty(name);
         }
 
+        public List<PropertyInfo> GetFilledFactors() {
+            var props = GetType().GetProperties().Where(x => x.Name != "Date"); //Not a factor
+            var result = new List<PropertyInfo>();
+            foreach ( var prop in props) {
+                if(prop.GetValue(this) != null) {
+                    result.Add(prop);
+                }
+            }
+            return result;
+        }
+
+        public bool IsFilled(string name) {
+            foreach (var prop in GetFilledFactors()) {
+                if (prop.Name == name) return true;
+            }
+            return false;
+        }
+
+        public string ToString(bool hideEmpty = false) {
+            var sb = new StringBuilder();
+            var props = GetType().GetProperties();
+            foreach ( var prop in props ) {
+                if(hideEmpty && prop.GetValue(this) == null) {
+                    continue;
+                }
+                sb.Append(prop.Name + ": " + prop.GetValue(this) + " ");
+            }
+            return sb.ToString();
+        }
+
         public string ToCSV() {
             string output = string.Empty;
             var props = typeof(Record).GetProperties().ToList();
-            props.AddRange(typeof(Predictions).GetProperties().ToList());
             foreach(var prop in props) {
                 output += prop.GetValue(this) + ",";
             }
