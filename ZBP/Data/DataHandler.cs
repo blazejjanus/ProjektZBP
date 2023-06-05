@@ -3,16 +3,20 @@
 namespace ZBP.Data {
     public static class DataHandler {
         public static List<Record> Combine(List<Record> records1, List<Record> records2) {
-            var len = Math.Max(records1.Count, records2.Count);
             var result = new List<Record>();
-            records1 = records1.OrderBy(x => x.Date).ToList();
-            foreach (var record1 in records1) {
-                var resultRecord = record1;
-                var record2items = records2.Where(x => x.Date == record1.Date).ToList();
-                foreach(var item in record2items) { 
-                    FillRecord(ref resultRecord, item);
+            foreach (var record in records1) {
+                var additions = records2.Where(x => x.Date == record.Date).ToList();
+                foreach (var addition in additions) {
+                    var filledProps = addition.GetFilledFactors();
+                    foreach (var filledProp in filledProps) {
+                        if (record.IsFilled(filledProp.Name)) {
+                            throw new InvalidOperationException("Cannot join factors that both have the same properties filled!");
+                        }
+                        var targetProp = Record.GetProperty(filledProp.Name);
+                        targetProp?.SetValue(record, filledProp.GetValue(addition));
+                    }
                 }
-                result.Add(resultRecord);
+                result.Add(record);
             }
             return result;
         }

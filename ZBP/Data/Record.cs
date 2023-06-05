@@ -90,18 +90,24 @@ namespace ZBP.Data {
         public double? OilPrice { get; set; }
         #endregion
         [Factor("WIG", Quantity.Percent)]
-        public double Wig { get; set; }
+        public double? Wig { get; set; }
         [Factor("WIG-20", Quantity.Percent)]
-        public double Wig20 { get; set; }
+        public double? Wig20 { get; set; }
         [Factor("WIG-30", Quantity.Percent)]
-        public double Wig30 { get; set; }
+        public double? Wig30 { get; set; }
+
+        public Record(DateOnly date) {
+            Date = date;
+        }
+
+        public Record() { }
 
         public static PropertyInfo? GetProperty(string name) {
             return typeof(Record).GetProperty(name);
         }
 
         public List<PropertyInfo> GetFilledFactors() {
-            var props = GetType().GetProperties().Where(x => x.Name != "Date"); //Not a factor
+            var props = GetType().GetProperties().Where(x => x.Name != "Date"); //Not a date
             var result = new List<PropertyInfo>();
             foreach ( var prop in props) {
                 if(prop.GetValue(this) != null) {
