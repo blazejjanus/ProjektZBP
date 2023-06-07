@@ -21,15 +21,28 @@ namespace ZBP.Data {
             return result;
         }
 
-        private static void FillRecord(ref Record target, Record source) {
-            var filledSourceProperties = source.GetFilledFactors();
-            foreach(var prop in filledSourceProperties) {
-                if (!target.IsFilled(prop.Name)) {
-                    prop.SetValue(target, prop.GetValue(source));
-                } else {
-                    Debug.WriteLine($"Property {prop.Name} already filled!");
-                }
+        public static List<Record> NormalizeDates(List<Record> records) {
+            var result = new List<Record>();
+            foreach (var record in records) {
+                int numDays = DateTime.DaysInMonth(record.Date.Year, record.Date.Month);
+                result.AddRange(NormalizeDate(record, numDays));
             }
+            return result;
+        }
+
+        public static List<Record> NormalizeDate(Record record, int numDays) {
+            var result = new List<Record>();
+            var baseDate = record.Date;
+            var filledProps = record.GetFilledFactors();
+            for (int i = 1; i <= numDays; i++) {
+                var tempRecord = new Record(baseDate.AddDays(i));
+                foreach(var prop in filledProps) {
+                    dynamic? tempValue = prop.GetValue(record);
+                    prop.SetValue(tempRecord, tempValue);
+                }
+                result.Add(tempRecord);
+            }
+            return result;
         }
 
         public static List<Record> ReadFactor(string propertyName, string filename, int dateColumn = 0, int valueColumn = 1, bool hasTitle = false) {
