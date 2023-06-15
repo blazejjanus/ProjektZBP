@@ -3,6 +3,19 @@
 namespace ZBP.Data {
     public static class DataHandler {
         public static List<Record> Combine(List<Record> records1, List<Record> records2) {
+            if(records1.Count == 0) {
+                records1.AddRange(records2);
+                return records1;
+            } else if(records2.Count == 0) {
+                records2.AddRange(records1);
+                return records2;
+            }
+            if (!IsDaily(records1)) {
+                NormalizeDates(records1);
+            }
+            if (!IsDaily(records2)) {
+                NormalizeDates(records2);
+            }
             var result = new List<Record>();
             foreach (var record in records1) {
                 var additions = records2.Where(x => x.Date == record.Date).ToList();
@@ -19,6 +32,18 @@ namespace ZBP.Data {
                 result.Add(record);
             }
             return result;
+        }
+
+        public static bool IsDaily(List<Record> records, int tolerance = 1) {
+            if (records.Count <= 1) {
+                return false;
+            }
+            int totalDifference = 0;
+            for (int i = 0; i < records.Count - 1; i++) {
+                totalDifference += Math.Abs((records[i + 1].Date.DayNumber - records[i].Date.DayNumber));
+            }
+            int averageDifference = totalDifference / (records.Count - 1);
+            return averageDifference <= tolerance;
         }
 
         public static List<Record> NormalizeDates(List<Record> records) {

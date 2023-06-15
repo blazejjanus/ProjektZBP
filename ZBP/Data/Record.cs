@@ -136,6 +136,15 @@ namespace ZBP.Data {
             return sb.ToString();
         }
 
+        private static string GetCSVTitle() {
+            string output = string.Empty;
+            var props = typeof(Record).GetProperties().ToList();
+            foreach (var prop in props) {
+                output += prop.Name + ",";
+            }
+            return output + "\n";
+        }
+
         public string ToCSV() {
             string output = string.Empty;
             var props = typeof(Record).GetProperties().ToList();
@@ -151,9 +160,8 @@ namespace ZBP.Data {
                 case DataFormat.JSON:
                     output = JsonSerializer.Serialize(data, new JsonSerializerOptions() { WriteIndented = true });
                     break;
-                case DataFormat.XML:
-                    throw new NotSupportedException(); //TODO: Consider removing or adding XML support
                 case DataFormat.CSV:
+                    output += GetCSVTitle();
                     foreach(var record in data) {
                         output += record.ToCSV();
                     }
