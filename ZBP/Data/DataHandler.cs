@@ -48,9 +48,12 @@ namespace ZBP.Data {
 
         public static List<Record> NormalizeDates(List<Record> records) {
             var result = new List<Record>();
-            foreach (var record in records) {
-                int numDays = DateTime.DaysInMonth(record.Date.Year, record.Date.Month);
-                result.AddRange(NormalizeDate(record, numDays));
+            for(int i = 0; i < records.Count - 1; i++) {
+                int numDays = records[i + 1].Date.DayNumber - records[i].Date.DayNumber;
+                if(numDays > 1) {
+                    result.AddRange(NormalizeDate(records[i], numDays));
+                }
+                
             }
             return result;
         }
