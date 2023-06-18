@@ -14,9 +14,10 @@ namespace ZBP {
                     case "read":
                         string? filePath = string.Empty;
                         try {
-                            filePath = GetString("FilePath:", true);
+                            filePath = GetString("FilePath:", true)?.Trim('\"');
                             if (!File.Exists(filePath)) {
                                 Console.WriteLine("File not exists!");
+                            } else {
                                 FileInfo fileInfo = new FileInfo(filePath ?? "");
                                 if (fileInfo.Extension == ".json") {
                                     var fileContent = File.ReadAllText(filePath ?? "");
@@ -24,10 +25,13 @@ namespace ZBP {
                                     Console.WriteLine($"Deserialized {records.Count} records.");
                                 }
                                 if (fileInfo.Extension == ".csv") {
-
+                                    var fileContent = File.ReadAllLines(filePath ?? "");
+                                    foreach (var record in records) {
+                                        //Not implemented
+                                    }
                                 }
                             }
-                        }catch(Exception exc) {
+                        } catch(Exception exc) {
                             Console.WriteLine($"Error: {exc}");
                         }
                         break;
@@ -119,7 +123,7 @@ namespace ZBP {
         public static string GetOptions() {
             var sb = new StringBuilder();
             sb.AppendLine("Commands:");
-            sb.AppendLine("read (r) - reads previously saved data (JSON or CSV)");
+            sb.AppendLine("\tread (r) - reads previously saved data (JSON or CSV)");
             sb.AppendLine("\treadfactor (rf) propertyName, fileName, <dateColumn> <valueColumn> <hasTitle> - reads bare data");
             sb.AppendLine("\twrite (w) filepath - writes to file");
             sb.AppendLine("\tshow (s) - shows all");

@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace ZBP.Data {
+﻿namespace ZBP.Data {
     public static class DataHandler {
         public static List<Record> Combine(List<Record> records1, List<Record> records2) {
             if(records1.Count == 0) {

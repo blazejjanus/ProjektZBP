@@ -1,11 +1,16 @@
 ﻿using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using ZBP.Attributes;
 using ZBP.Enums;
 
 namespace ZBP.Data {
     public class Record {
+        [JsonIgnore]
+        public static DateOnly START_DATE = new DateOnly(2000, 01, 01);
+        [JsonIgnore]
+        public static DateOnly END_DATE = new DateOnly(2023, 05, 01);
         public DateOnly Date { get; set; }
         #region CPI
         [Factor("CPI PLN", Quantity.Percent)]
@@ -16,6 +21,8 @@ namespace ZBP.Data {
         public double? CpiUsd { get; set; }
         [Factor("CPI CHF", Quantity.Percent)]
         public double? CpiChf { get; set; }
+        [Factor("CPI GBP", Quantity.Percent)]
+        public double? CpiGbp { get; set; }
         #endregion
         #region Currency Rates
         [Factor("USD", "USD Price", Quantity.PLN)]
@@ -131,7 +138,7 @@ namespace ZBP.Data {
                 if(hideEmpty && prop.GetValue(this) == null) {
                     continue;
                 }
-                sb.Append(prop.Name + ": " + prop.GetValue(this) + " ");
+                sb.Append(prop.Name + ": " + prop.GetValue(this)?.ToString()?.Replace(',', '.') + " ");
             }
             return sb.ToString();
         }
@@ -149,12 +156,13 @@ namespace ZBP.Data {
             string output = string.Empty;
             var props = typeof(Record).GetProperties().ToList();
             foreach(var prop in props) {
-                output += prop.GetValue(this) + ",";
+                output += prop.GetValue(this)?.ToString()?.Replace(',', '.') + ",";
             }
             return output + "\n";
         }
 
         public static void Save2File(List<Record> data, string filename, DataFormat format = DataFormat.JSON) {
+            filename = filename.Trim('\"');
             string output = string.Empty;
             switch (format) {
                 case DataFormat.JSON:
