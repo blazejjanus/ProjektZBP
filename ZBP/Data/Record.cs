@@ -79,16 +79,6 @@ namespace ZBP.Data {
         public double? GdpPppTotalPl { get; set; }
         [Factor("GDP PerCapita PL", Frequency.Year, Quantity.USD)]
         public double? GdpPcPl { get; set; }
-        [Factor("RNI", "Rate of natural increase", Frequency.Year, Quantity.Percent)]
-        public double? RniPl { get; set; }
-        [Factor("HDI", "Human Development Index", Frequency.Year, Quantity.Value)]
-        public double? HDI { get; set; }
-        [Factor("RSI", "Retail Sales Increase", Frequency.Year, Quantity.Value)]
-        public double? RSI { get; set; }
-        [Factor("BoP", "Balance of Payments", Frequency.Year, Quantity.Percent)]
-        public double? BoP { get; set; }
-        [Factor("BigMac Index", Frequency.Year, Quantity.PLN)]
-        public double? BigMacIndex { get; set; }
         [Factor("Public Debt", Frequency.Year, Quantity.USD)]
         public double? PublicDebt { get; set; }
         #endregion
@@ -100,8 +90,6 @@ namespace ZBP.Data {
         public double? Wig { get; set; }
         [Factor("WIG-20", Quantity.Percent)]
         public double? Wig20 { get; set; }
-        [Factor("WIG-30", Quantity.Percent)]
-        public double? Wig30 { get; set; }
 
         public Record(DateOnly date) {
             Date = date;
