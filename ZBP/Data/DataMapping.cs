@@ -1,9 +1,4 @@
-﻿using Wig20Input = ZBP.Wig20Prediction.ModelInput;
-using Wig20Output = ZBP.Wig20Prediction.ModelOutput;
-using WigInput = ZBP.WigPrediction.ModelInput;
-using WigOutput = ZBP.WigPrediction.ModelOutput;
-
-namespace ZBP.Data {
+﻿namespace ZBP.Data {
     public static class DataMapping {
         public static Wig20Input Wig20Mapping(Record record) {
             return new Wig20Input {

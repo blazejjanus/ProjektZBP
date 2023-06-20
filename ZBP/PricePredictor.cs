@@ -1,4 +1,5 @@
 ﻿using Microsoft.ML;
+using ZBP.Data;
 
 namespace ZBP {
     public class PricePredictor {
@@ -6,6 +7,52 @@ namespace ZBP {
 
         public PricePredictor() {
             Context = new MLContext();
+        }
+
+        public Record PredictWig(Record input) {
+            WigInput data = DataMapping.WigMapping(input);
+            var output = WigPrediction.Predict(data);
+            return DataMapping.WigMapping(output);
+        }
+
+        public Record PredictWig20(Record input) {
+            Wig20Input data = DataMapping.Wig20Mapping(input);
+            var output = Wig20Prediction.Predict(data);
+            return DataMapping.Wig20Mapping(output);
+        }
+
+        public Record PredictAll(Record input) {
+            var wig = PredictWig(input);
+            var wig20 = PredictWig20(input);
+            return MergeResults(wig, wig20);
+        }
+
+        public List<Record> PredictWig(List<Record> input) {
+            var result = new List<Record>();
+            foreach (var record in input) {
+                result.Add(PredictWig(record));
+            }
+            return result;
+        }
+
+        public List<Record> PredictWig20(List<Record> input) {
+            var result = new List<Record>();
+            foreach (var record in input) {
+                result.Add(PredictWig20(record));
+            }
+            return result;
+        }
+
+        public List<Record> PredictAll(List<Record> input) {
+            var result = new List<Record>();
+            foreach (var record in input) {
+                result.Add(PredictAll(record));
+            }
+            return result;
+        }
+
+        private Record MergeResults(Record wig, Record wig20) {
+            wig.Wig20 = wig20.Wig20; return wig;
         }
     }
 }
