@@ -12,38 +12,33 @@ namespace ZBP.Data {
         [JsonIgnore]
         public static DateOnly END_DATE = new DateOnly(2023, 05, 01);
         public DateOnly Date { get; set; }
-        #region CPI
-        [Factor("CPI PLN", Quantity.Percent)]
-        public double? CpiPln { get; set; }
-        [Factor("CPI EUR", Quantity.Percent)]
-        public double? CpiEur { get; set; }
-        [Factor("CPI USD", Quantity.Percent)]
-        public double? CpiUsd { get; set; }
-        [Factor("CPI CHF", Quantity.Percent)]
-        public double? CpiChf { get; set; }
-        [Factor("CPI GBP", Quantity.Percent)]
-        public double? CpiGbp { get; set; }
-        #endregion
-        #region Currency Rates
-        [Factor("USD", "USD Price", Quantity.PLN)]
-        public double? PlnUsdRate { get; set; }
-        [Factor("EUR", "EUR Price", Quantity.PLN)]
-        public double? PlnEurRate { get; set; }
-        [Factor("GBP", "GBP Price", Quantity.PLN)]
-        public double? PlnGbpRate { get; set; }
-        [Factor("CHF", "CHF Price", Quantity.PLN)]
-        public double? PlnChfRate { get; set; }
-        #endregion
-        #region Interests
-        [Factor("Interest PLN", "PLN Interest Rate", Quantity.Percent)]
-        public double? InterestRatePln { get; set; }
-        [Factor("Interest EUR", "EUR Interest Rate", Quantity.Percent)]
-        public double? InterestRateEur { get; set; }
-        [Factor("Interest USD", "USD Interest Rate", Quantity.Percent)]
-        public double? InterestRateUsd { get; set; }
-        [Factor("Interest CHF", "CHF Interest Rate", Quantity.Percent)]
-        public double? InterestRateChf { get; set; }
-        #endregion
+        public double? Wig { get; set; }
+         public double? Wig20 { get; set; }
+         public double? PlnChfRate { get; set; }
+         public double? PlnEurRate { get; set; }
+         public double? PlnGbpRate { get; set; }
+         public double? PlnUsdRate { get; set; }
+         public double? CpiChf { get; set; }
+         public double? CpiGbp { get; set; }
+         public double? CpiPln { get; set; }
+         public double? CpiUsd { get; set; }
+         public double? CpiEur { get; set; }
+         public double? InterestRatePln { get; set; }
+         public double? PublicDebtPL { get; set; }
+         public double? POL_DebtPerGDP { get; set; }
+         public double? POL_PopulationGrowth { get; set; }
+         public double? POL_Unemployment { get; set; }
+         public double? POL_GDP_Growth { get; set; }
+         public double? POL_GDP { get; set; }
+         public double? POL_GDP_PC { get; set; }
+         public double? POL_GDP_PPP { get; set; }
+         public double? POL_GDP_PPP_PC { get; set; }
+         public double? EU_GDP_Growth { get; set; }
+         public double? EU_GDP { get; set; }
+         public double? EU_GDP_PC { get; set; }
+         public double? EU_GDP_PPP { get; set; }
+         public double? EU_GDP_PPP_PC { get; set; }
+
         #region StockExchanges
         [Factor("LSE", "London Stock Exchange", Quantity.Percent)]
         public double? Lse { get; set; }
@@ -58,38 +53,8 @@ namespace ZBP.Data {
         [Factor("JPX", "Japan Stock Exchange", Quantity.Percent)]
         public double? Jpx { get; set; }
         #endregion
-        #region EU Economy
-        [Factor("GDP Growth EU", Frequency.Year, Quantity.Percent)]
-        public double? GdpGrowthEu { get; set; }
-        [Factor("GDP Total EU", Frequency.Year, Quantity.USD)]
-        public double? GdpTotalEu { get; set; }
-        [Factor("GDP(PPP) Total EU", Frequency.Year, Quantity.USD)]
-        public double? GdpPppTotalEu { get; set; }
-        [Factor("GDP PerCapita EU", Frequency.Year, Quantity.USD)]
-        public double? GdpPcEu { get; set; }
-        #endregion
-        #region PL Economy
         [Factor("Unemployment", Frequency.Month, Quantity.Percent)]
         public double? Unemployment { get; set; }
-        [Factor("GDP Growth PL", Frequency.Year, Quantity.Percent)]
-        public double? GdpGrowthPl { get; set; }
-        [Factor("GDP Total PL", Frequency.Year, Quantity.USD)]
-        public double? GdpTotalPl { get; set; }
-        [Factor("GDP(PPP) Total PL", Frequency.Year, Quantity.USD)]
-        public double? GdpPppTotalPl { get; set; }
-        [Factor("GDP PerCapita PL", Frequency.Year, Quantity.USD)]
-        public double? GdpPcPl { get; set; }
-        [Factor("Public Debt", Frequency.Year, Quantity.USD)]
-        public double? PublicDebt { get; set; }
-        #endregion
-        #region World
-        [Factor("Oil", "Oil Price", Frequency.Month, Quantity.USD)]
-        public double? OilPrice { get; set; }
-        #endregion
-        [Factor("WIG", Quantity.Percent)]
-        public double? Wig { get; set; }
-        [Factor("WIG-20", Quantity.Percent)]
-        public double? Wig20 { get; set; }
 
         public Record(DateOnly date) {
             Date = date;
