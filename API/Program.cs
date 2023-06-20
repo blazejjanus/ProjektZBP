@@ -1,5 +1,4 @@
-
-namespace API {
+namespace ZBP.API {
     public class Program {
         public static void Main(string[] args) {
             var builder = WebApplication.CreateBuilder(args);

@@ -1,6 +1,6 @@
 ﻿using ZBP.Data;
 
-namespace API.Data {
+namespace ZBP.API.Data {
     public class Result {
         public DateOnly Date { get; set; }
         public double? Wig { get; set; }

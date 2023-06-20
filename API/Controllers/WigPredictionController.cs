@@ -1,9 +1,8 @@
-using API.Data;
+using ZBP.API.Data;
 using Microsoft.AspNetCore.Mvc;
-using ZBP;
 using ZBP.Data;
 
-namespace API.Controllers {
+namespace ZBP.API.Controllers {
     [ApiController]
     [Route("[controller]")]
     public class WigPredictionController : ControllerBase {

@@ -4,6 +4,9 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	<AssemblyName>ZBP.API</AssemblyName>
+	<RootNamespace>ZBP.API</RootNamespace>
+	<BaseOutputPath>..\.build\</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
