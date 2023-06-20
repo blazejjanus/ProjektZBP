@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZBP.Tests", "ZBP.Tests\ZBP.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZBP.CLI", "ZBP.CLI\ZBP.CLI.csproj", "{B916D3B2-71ED-43AB-B97C-6352A709308F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{EAAB815E-7485-42E2-8840-CDA07555428C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B916D3B2-71ED-43AB-B97C-6352A709308F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B916D3B2-71ED-43AB-B97C-6352A709308F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B916D3B2-71ED-43AB-B97C-6352A709308F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAAB815E-7485-42E2-8840-CDA07555428C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAAB815E-7485-42E2-8840-CDA07555428C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAAB815E-7485-42E2-8840-CDA07555428C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAAB815E-7485-42E2-8840-CDA07555428C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
