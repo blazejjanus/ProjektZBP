@@ -22,7 +22,7 @@ namespace ZBP.API {
 
 
             app.MapControllers();
-
+            Console.WriteLine("Hint: Swagger: /swagger/index.html");
             app.Run();
         }
     }
