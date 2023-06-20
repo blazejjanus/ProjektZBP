@@ -25,10 +25,8 @@ namespace ZBP {
                                     Console.WriteLine($"Deserialized {records.Count} records.");
                                 }
                                 if (fileInfo.Extension == ".csv") {
-                                    var fileContent = File.ReadAllLines(filePath ?? "");
-                                    foreach (var record in records) {
-                                        //Not implemented
-                                    }
+                                    records = Record.DeserializeCSV(filePath ?? "");
+                                    Console.WriteLine($"Deserialized {records.Count} records.");
                                 }
                             }
                         } catch(Exception exc) {

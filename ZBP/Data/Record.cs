@@ -41,23 +41,9 @@ namespace ZBP.Data {
         public double? EU_GDP_PC { get; set; }
         public double? EU_GDP_PPP { get; set; }
         public double? EU_GDP_PPP_PC { get; set; }
-
-        #region StockExchanges
-        [Factor("LSE", "London Stock Exchange", Quantity.Percent)]
         public double? Lse { get; set; }
-        [Factor("Nasdaq", Quantity.Percent)]
         public double? Nasdaq { get; set; }
-        [Factor("NYSE", "New York Stock Exchange", Quantity.Percent)]
         public double? Nyse { get; set; }
-        [Factor("SSE", "Shanghai Stock Exchange", Quantity.Percent)]
-        public double? Sse { get; set; }
-        [Factor("SZSE", "ShenZen Stock Exchange", Quantity.Percent)]
-        public double? Szse { get; set; }
-        [Factor("JPX", "Japan Stock Exchange", Quantity.Percent)]
-        public double? Jpx { get; set; }
-        #endregion
-        [Factor("Unemployment", Frequency.Month, Quantity.Percent)]
-        public double? Unemployment { get; set; }
 
         public Record(DateOnly date) {
             Date = date;
