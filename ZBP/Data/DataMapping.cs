@@ -38,8 +38,8 @@
         public static Record Wig20Mapping(Wig20Output record) {
             return new Record {
                 Date = DateOnly.FromDateTime(record.Date),
-                Wig = record.Wig,
-                Wig20 = record.Wig20,
+                Wig = null,
+                Wig20 = record.Score,
                 PlnChfRate = record.PlnChfRate,
                 PlnEurRate = record.PlnEurRate,
                 PlnGbpRate = record.PlnGbpRate,
@@ -108,8 +108,8 @@
         public static Record WigMapping(WigOutput record) {
             return new Record {
                 Date = DateOnly.FromDateTime(record.Date),
-                Wig = record.Wig,
-                Wig20 = record.Wig20,
+                Wig = record.Score,
+                Wig20 = null,
                 PlnChfRate = record.PlnChfRate,
                 PlnEurRate = record.PlnEurRate,
                 PlnGbpRate = record.PlnGbpRate,

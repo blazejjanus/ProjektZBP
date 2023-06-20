@@ -54,5 +54,18 @@ namespace ZBP {
         private Record MergeResults(Record wig, Record wig20) {
             wig.Wig20 = wig20.Wig20; return wig;
         }
+
+        private List<Record> ClearPredictedProps(List<Record> input) {
+            var result = new List<Record>();
+            foreach(var record in input) {
+                result.Add(ClearPredictedProps(record));
+            }
+            return result;
+        }
+
+        private Record ClearPredictedProps(Record input) {
+            input.Wig = null; input.Wig20 = null;
+            return input;
+        }
     }
 }

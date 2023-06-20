@@ -40,7 +40,7 @@ namespace ZBP {
                         var result = service.PredictAll(records);
                         Console.WriteLine("Prediction successful.");
                         filePath = GetString("Output file path:", true)?.Trim('\"');
-                        Record.Save2File(records, filePath ?? "", Enums.DataFormat.CSV);
+                        Record.Save2File(result, filePath ?? "", Enums.DataFormat.CSV);
                         Console.WriteLine("File saved.");
                         break;
                     case "readfactor":

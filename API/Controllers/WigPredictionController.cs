@@ -1,5 +1,5 @@
-using ZBP.API.Data;
 using Microsoft.AspNetCore.Mvc;
+using ZBP.API.Data;
 using ZBP.Data;
 
 namespace ZBP.API.Controllers {
@@ -14,32 +14,32 @@ namespace ZBP.API.Controllers {
             Service = new PricePredictor();
         }
 
-        [HttpGet(Name = "GetWig")]
+        [HttpPost("Wig")]
         public IEnumerable<Result> GetWig(List<Record> input) {
             return Result.FromRecord(Service.PredictWig(input));
         }
 
-        [HttpGet(Name = "GetWig20")]
+        [HttpPost("Wig20")]
         public IEnumerable<Result> GetWig20(List<Record> input) {
             return Result.FromRecord(Service.PredictWig20(input));
         }
 
-        [HttpGet(Name = "GetAll")]
+        [HttpPost("All")]
         public IEnumerable<Result> GetAll(List<Record> input) {
             return Result.FromRecord(Service.PredictAll(input));
         }
 
-        [HttpGet(Name = "GetWigList")]
+        [HttpPost("WigList")]
         public Result GetWig(Record input) {
             return Result.FromRecord(Service.PredictWig(input));
         }
 
-        [HttpGet(Name = "GetWig20List")]
+        [HttpPost("Wig20List")]
         public Result GetWig20(Record input) {
             return Result.FromRecord(Service.PredictWig20(input));
         }
 
-        [HttpGet(Name = "GetAllList")]
+        [HttpPost("AllList")]
         public Result GetAll(Record input) {
             return Result.FromRecord(Service.PredictAll(input));
         }
