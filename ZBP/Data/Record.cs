@@ -123,12 +123,12 @@ namespace ZBP.Data {
         public static List<Record> DeserializeCSV(string path) {
             var output = new List<Record>();
             var config = new CsvConfiguration(CultureInfo.InvariantCulture) {
-                NewLine = Environment.NewLine,
+                Delimiter = ";",
+                NewLine = Environment.NewLine
             };
-            using(var reader = new StreamReader(path)) {
-                using(var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) {
-                    output = csv.GetRecords<Record>().ToList();
-                }
+            using (var reader = new StreamReader(path))
+            using (var csv = new CsvReader(reader, config)) {
+                output = csv.GetRecords<Record>().ToList();
             }
             return output;
         }

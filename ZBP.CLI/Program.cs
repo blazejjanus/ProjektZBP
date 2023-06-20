@@ -33,6 +33,16 @@ namespace ZBP {
                             Console.WriteLine($"Error: {exc}");
                         }
                         break;
+                    case "predict":
+                    case "p":
+                        var service = new PricePredictor();
+                        Console.WriteLine($"Prediction process for {records.Count} records started...");
+                        var result = service.PredictAll(records);
+                        Console.WriteLine("Prediction successful.");
+                        filePath = GetString("Output file path:", true)?.Trim('\"');
+                        Record.Save2File(records, filePath ?? "", Enums.DataFormat.CSV);
+                        Console.WriteLine("File saved.");
+                        break;
                     case "readfactor":
                     case "rf":
                         string? propertyName = GetString("PropertyName:", true);
@@ -122,6 +132,7 @@ namespace ZBP {
             var sb = new StringBuilder();
             sb.AppendLine("Commands:");
             sb.AppendLine("\tread (r) - reads previously saved data (JSON or CSV)");
+            sb.AppendLine("\tpredict (p) - predicts");
             sb.AppendLine("\treadfactor (rf) propertyName, fileName, <dateColumn> <valueColumn> <hasTitle> - reads bare data");
             sb.AppendLine("\twrite (w) filepath - writes to file");
             sb.AppendLine("\tshow (s) - shows all");
