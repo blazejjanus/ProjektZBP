@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
+using System.Globalization;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -13,31 +16,31 @@ namespace ZBP.Data {
         public static DateOnly END_DATE = new DateOnly(2023, 05, 01);
         public DateOnly Date { get; set; }
         public double? Wig { get; set; }
-         public double? Wig20 { get; set; }
-         public double? PlnChfRate { get; set; }
-         public double? PlnEurRate { get; set; }
-         public double? PlnGbpRate { get; set; }
-         public double? PlnUsdRate { get; set; }
-         public double? CpiChf { get; set; }
-         public double? CpiGbp { get; set; }
-         public double? CpiPln { get; set; }
-         public double? CpiUsd { get; set; }
-         public double? CpiEur { get; set; }
-         public double? InterestRatePln { get; set; }
-         public double? PublicDebtPL { get; set; }
-         public double? POL_DebtPerGDP { get; set; }
-         public double? POL_PopulationGrowth { get; set; }
-         public double? POL_Unemployment { get; set; }
-         public double? POL_GDP_Growth { get; set; }
-         public double? POL_GDP { get; set; }
-         public double? POL_GDP_PC { get; set; }
-         public double? POL_GDP_PPP { get; set; }
-         public double? POL_GDP_PPP_PC { get; set; }
-         public double? EU_GDP_Growth { get; set; }
-         public double? EU_GDP { get; set; }
-         public double? EU_GDP_PC { get; set; }
-         public double? EU_GDP_PPP { get; set; }
-         public double? EU_GDP_PPP_PC { get; set; }
+        public double? Wig20 { get; set; }
+        public double? PlnChfRate { get; set; }
+        public double? PlnEurRate { get; set; }
+        public double? PlnGbpRate { get; set; }
+        public double? PlnUsdRate { get; set; }
+        public double? CpiChf { get; set; }
+        public double? CpiGbp { get; set; }
+        public double? CpiPln { get; set; }
+        public double? CpiUsd { get; set; }
+        public double? CpiEur { get; set; }
+        public double? InterestRatePln { get; set; }
+        public double? PublicDebtPL { get; set; }
+        public double? POL_DebtPerGDP { get; set; }
+        public double? POL_PopulationGrowth { get; set; }
+        public double? POL_Unemployment { get; set; }
+        public double? POL_GDP_Growth { get; set; }
+        public double? POL_GDP { get; set; }
+        public double? POL_GDP_PC { get; set; }
+        public double? POL_GDP_PPP { get; set; }
+        public double? POL_GDP_PPP_PC { get; set; }
+        public double? EU_GDP_Growth { get; set; }
+        public double? EU_GDP { get; set; }
+        public double? EU_GDP_PC { get; set; }
+        public double? EU_GDP_PPP { get; set; }
+        public double? EU_GDP_PPP_PC { get; set; }
 
         #region StockExchanges
         [Factor("LSE", "London Stock Exchange", Quantity.Percent)]
@@ -129,6 +132,19 @@ namespace ZBP.Data {
                     break;
             }
             File.WriteAllText(filename, output);
+        }
+
+        public static List<Record> DeserializeCSV(string path) {
+            var output = new List<Record>();
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture) {
+                NewLine = Environment.NewLine,
+            };
+            using(var reader = new StreamReader(path)) {
+                using(var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) {
+                    output = csv.GetRecords<Record>().ToList();
+                }
+            }
+            return output;
         }
     }
 }
